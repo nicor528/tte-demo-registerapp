@@ -8,7 +8,7 @@ const config = {
   authRequired: false,
   auth0Logout: true,
   secret: process.env.client_secret,
-  baseURL: 'http://localhost:3000',
+  baseURL: process.env.url,
   clientID: process.env.clientID,
   issuerBaseURL: 'https://talktoeve.eu.auth0.com'
 };
@@ -31,6 +31,13 @@ app.get("/try-login", (req, res) => {
 })
 
 /*
+app.get('/callback', (req, res) => {
+  // Autenticación y generación de token aquí...
+  const token = generarToken();  // Lógica para generar el token
+  res.redirect(`http://localhost:3000/registro?token=${token}`);
+});*/
+
+/*
 app.get("/callback", (req, res) => {
   console.log("test")
 })*/
@@ -40,7 +47,8 @@ app.get('/', (req, res) => {
   console.log(req.oidc.user)
   //res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
   if(req.oidc.isAuthenticated()){
-    res.status(200).send({status: true, message: "ok", user: {nickname : req.oidc.user.nickname, email: req.oidc.user.email}})
+    res.redirect(`frontend?nickname=${req.oidc.user.nickname}&email=${req.oidc.user.email}`)
+    //res.status(200).send({status: true, message: "ok", user: {nickname : req.oidc.user.nickname, email: req.oidc.user.email}})
   }else{
     res.redirect("http://localhost:3000/login");
   }
