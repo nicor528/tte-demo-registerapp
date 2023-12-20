@@ -24,7 +24,7 @@ app.use(auth(config));
 app.get("/try-login", (req, res) => {
   const token = req.query.token;
   if(token == process.env.auth_token){
-    res.redirect("http://localhost:3000/login");
+    res.redirect(`${process.env.url}/login`);
   }else{
     res.status(404).send({message: "Bad auth_token", status: false})
   }
@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
     res.redirect(`frontend?nickname=${req.oidc.user.nickname}&email=${req.oidc.user.email}`)
     //res.status(200).send({status: true, message: "ok", user: {nickname : req.oidc.user.nickname, email: req.oidc.user.email}})
   }else{
-    res.redirect("http://localhost:3000/login");
+    res.redirect(`${process.env.url}/login`);
   }
 });
 
