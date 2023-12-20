@@ -21,6 +21,10 @@ const app = express();
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
 
+app.get("/test", (req, res) => {
+  res.send("test ok")
+})
+
 app.get("/try-login", (req, res) => {
   const token = req.query.token;
   if(token == process.env.auth_token){
