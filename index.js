@@ -71,7 +71,7 @@ app.get('/', (req, res) => {
   console.log(req.oidc.user)
   //res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
   if(req.oidc.isAuthenticated()){
-    res.redirect(`frontend?nickname=${req.oidc.user.nickname}&email=${req.oidc.user.email}`)
+    res.redirect(`http://localhost:5173?nickname=${req.oidc.user.nickname}&email=${req.oidc.user.email}`)
     //res.status(200).send({status: true, message: "ok", user: {nickname : req.oidc.user.nickname, email: req.oidc.user.email}})
   }else{
     res.redirect(`${process.env.url}/login`);
@@ -83,7 +83,7 @@ app.get('/profile', requiresAuth(), (req, res) => {
 });
 
 httpsServer.listen(3000, () => {
-  console.log('Servidor HTTPS en ejecución en el puerto 443');
+  console.log('Servidor HTTPS en ejecución en el puerto 3000');
 });
 
 
